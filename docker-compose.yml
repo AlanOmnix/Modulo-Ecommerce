@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:     
+
+    apinode: 
+
+        container_name: apinode
+        restart: always
+        build: ./api
+        ports:
+            - "3000:8080"
+        volumes:
+            - ./api:/usr/src/app
+        command: npm run dev
+
+    consumer: 
+
+        container_name: consumer
+        restart: always
+        build: ./consumer
+        links:
+            - mongo
+        volumes:
+            - ./consumer:/usr/src/app
+        command: npm run dev
+
+    mongo:
+
+        container_name: mongodatabase   
+        image: mongo
+        volumes: 
+            - ./mongoDb/:/data/db
+        ports: 
+            - "27017:27017"
+
+    rabbitmq:
+        hostname: 'rabbitmqHost'
+        image: rabbitmq:3.9.13-management
+        container_name: rabbitmq
+        restart: always
+        volumes: 
+            - ./rabbitmq_db/:/var/lib/rabbitmq/mnesia/
+        ports:
+            - "15672:15672"
+            - "5672:5672"

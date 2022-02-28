@@ -1,0 +1,8 @@
+**/node_modules
+./api/node_modules
+./consumer/node_modules
+
+/mongoDb
+/rabbitmq_db
+
+npm-debug.log
