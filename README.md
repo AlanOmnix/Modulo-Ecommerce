@@ -1,4 +1,4 @@
-Para ejecutar los containers del proyecto, ejecutar en consola desde la raiz 'docker-compose up'
+Para ejecutar los containers del proyecto, ejecutar en consola desde la raiz 'docker-compose build' y luego 'docker-compose up'
 
 Atutomaticamente se les crearan dos carpetas mas en la raiz del proyecto, que son la carpetas de 'volumes' de rabbitMq y Mongo para que los datos persistan y no se borren cuando apaguen los containers.
 
