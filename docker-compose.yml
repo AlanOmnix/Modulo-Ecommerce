@@ -4,7 +4,6 @@ services:
 
     apinode: 
 
-        container_name: apinode
         restart: always
         build: ./api
         ports:
@@ -12,10 +11,12 @@ services:
         volumes:
             - ./api:/usr/src/app
         command: npm run dev
+        networks: 
+            api_network:
+                ipv4_address: 192.168.10.1
 
     consumer: 
 
-        container_name: consumer
         restart: always
         build: ./consumer
         links:
@@ -23,6 +24,9 @@ services:
         volumes:
             - ./consumer:/usr/src/app
         command: npm run dev
+        networks: 
+            api_network:
+                ipv4_address: 192.168.10.2
 
     mongo:
 
@@ -32,6 +36,9 @@ services:
             - ./mongoDb/:/data/db
         ports: 
             - "27017:27017"
+        networks: 
+            api_network:
+                ipv4_address: 192.168.10.3
 
     rabbitmq:
         hostname: 'rabbitmqHost'
@@ -43,3 +50,15 @@ services:
         ports:
             - "15672:15672"
             - "5672:5672"
+        networks: 
+            api_network:
+                ipv4_address: 192.168.10.4
+
+networks:
+    api_network: 
+        name: api_network
+        driver: bridge
+        ipam: 
+            driver: default
+            config: 
+                - subnet: 192.168.10.0/16
