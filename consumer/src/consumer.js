@@ -15,7 +15,9 @@ export async function consumer(){
 
 
             console.log('Consumer is conected')
+            
 
+            channel.assertQueue(queueNames.reserves)
 
             channel.consume(queueNames.reserves, async(msg) => {
                 

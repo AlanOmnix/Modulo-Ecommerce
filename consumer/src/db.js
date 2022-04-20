@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+import { mongo_host } from './config'
 
-const URI = process.env.DB_URI
+const URI = mongo_host
 
 mongoose.connect(URI, {
     useUnifiedTopology: true,
